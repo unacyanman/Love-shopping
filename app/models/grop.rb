@@ -1,0 +1,2 @@
+class Grop < ApplicationRecord
+end
