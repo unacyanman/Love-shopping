@@ -1,2 +1,0 @@
-class GropController < ApplicationController
-end
