@@ -1,2 +1,0 @@
-class TagRelationshipsController < ApplicationController
-end
