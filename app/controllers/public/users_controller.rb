@@ -1,8 +1,14 @@
+class User < ApplicationRecord
+  has_many :posts
+end
+
+
 class Public::UsersController < ApplicationController
+  
   
   def show
     @user = User.find(params[:id])
-    @post_images = @user.posts.page(params[:page])
+    @posts = @user.posts.page(params[:page])
   end
 
   def edit
@@ -20,5 +26,6 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :profile_image)
   end
+  
   
 end
