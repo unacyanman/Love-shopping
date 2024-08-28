@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     get 'dashboards', to: 'dashboards#index'
     resources :users, only: [:destroy]
   end
+  
+  namespace :public do
+    resources :posts do
+      resources :comments, only: [:create, :edit, :show, :destroy]
+    end
+  end
 
   scope module: :public do
     devise_for :users
@@ -21,5 +27,7 @@ Rails.application.routes.draw do
     end
     resources :users, only: [:show, :edit, :update]
   end
+
+  post '/posts/:id/favorite', to: 'favorites#create', as: 'post_favorite'
 
 end
