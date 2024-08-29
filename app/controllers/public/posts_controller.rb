@@ -19,7 +19,12 @@ class Public::PostsController < ApplicationController
   end
   
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
+    if @post
+      @comment = Comment.new
+    else
+      redirect_to posts_path, notice: '指定された投稿が見つかりませんでした'
+    end
   end
   
   def destroy

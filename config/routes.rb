@@ -16,6 +16,14 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :edit, :show, :destroy]
     end
   end
+  
+  namespace :public do
+    resources :comments, only: [:create, :edit, :show, :destroy]
+    resources :posts do
+      # ...
+    end
+  end
+  
 
   scope module: :public do
     devise_for :users
