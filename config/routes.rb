@@ -29,6 +29,15 @@ Rails.application.routes.draw do
     devise_for :users
     root to: 'homes#top'
     get 'homes/about', to: 'homes#about', as: :about
+    get 'posts/new'
+    get 'top' => 'home#top'
+    post 'posts' => 'posts#create'
+    get 'posts' => 'posts#index'
+    get 'posts/:id' => 'posts#show', as: 'post'
+    get 'posts/:id/edit' => 'posts#edit', as: 'edit_post'
+    patch 'posts/:id' => 'posts#update', as: 'update_post'
+    
+    
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]

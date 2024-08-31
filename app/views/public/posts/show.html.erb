@@ -33,7 +33,9 @@ posts/show
               </span>
             <% end %>
             <% if @post.user == current_user %>
-              <span> ｜ </span><%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
+              <span> ｜ </span>
+              <%= link_to "編集", edit_post_path(@post.id) %>
+              <%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
             <% end %>
           </div>
         </div>
