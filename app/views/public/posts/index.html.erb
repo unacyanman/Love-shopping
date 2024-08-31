@@ -1,5 +1,8 @@
 posts/index
 
+<!--side_barの呼び出し-->
+<%= render 'side_bar', post: @posts %>
+
 <div class="card-list-container py-5">
   <% @posts.each do |post| %>
   <div class="card w-50 mx-auto mt-4 shadow-lg">
