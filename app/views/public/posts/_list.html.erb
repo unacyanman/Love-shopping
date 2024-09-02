@@ -19,11 +19,11 @@ _list
           </p>
           <p class="card-text">本文：<%= post.body %></p>
           <span><i class="fa-solid fa-user"></i> By <%= post.user.name %> ｜ </span>
-          <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
+          <span><%= link_to "#{post.comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
         </div>
       </div>
     </div>
   </div>
   <% end %>
-  <%= paginate post %>
+  <%= paginate posts %>
 </div>
