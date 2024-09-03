@@ -17,13 +17,6 @@ Rails.application.routes.draw do
     end
   end
   
-  namespace :public do
-    resources :comments, only: [:create, :edit, :show, :destroy]
-    resources :posts do
-      # ...
-    end
-  end
-  
 
   scope module: :public do
     devise_for :users
@@ -36,13 +29,15 @@ Rails.application.routes.draw do
     get 'posts/:id' => 'posts#show', as: 'post'
     get 'posts/:id/edit' => 'posts#edit', as: 'edit_post'
     patch 'posts/:id' => 'posts#update', as: 'update_post'
-    
+    get "/assets/font-awesome-sprockets", to: "user#show"
+    get '/profile_image.jpg', to: 'users#get_profile_image'
     
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
     end
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update, :destroy] do
+    end
   end
 
   post '/posts/:id/favorite', to: 'favorites#create', as: 'post_favorite'

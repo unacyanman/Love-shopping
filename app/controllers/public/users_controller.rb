@@ -1,8 +1,3 @@
-class User < ApplicationRecord
-  has_many :posts
-end
-
-
 class Public::UsersController < ApplicationController
   
   
@@ -17,10 +12,24 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user)
+    if @user.update(user_params)
+      redirect_to edit_public_user_path(@user)
+    else
+      flash.now[:error] = "名前を入力してください"
+      render 'edit'
+    end
   end
-
+  
+  def get_profile_image
+    # 画像の取得処理を実装する
+  end
+  
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to new_users_path, notice: '退会しました。'
+  end
+  
   private
 
   def user_params
