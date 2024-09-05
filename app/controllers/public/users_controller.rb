@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
-  
+  before_action :authenticate_user!, except: [:show]
+  before_action :authorize_user, only: [:edit, :update]
   
   def show
     @user = User.find(params[:id])
@@ -31,6 +32,12 @@ class Public::UsersController < ApplicationController
   end
   
   private
+
+  def authorize_user
+    if current_user != User.find(params[:id])
+      redirect_to mypage_path, alert: "他のユーザーの編集はできません。"
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :profile_image)

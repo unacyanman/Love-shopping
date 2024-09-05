@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+
   
   def new
     @post = Post.new
@@ -44,6 +46,18 @@ class Public::PostsController < ApplicationController
   end
   
   private
+  
+  def authenticate_user
+    unless current_user
+      redirect_to login_path, alert: "ログインしてください"
+    end
+  end
+  
+  def authenticate_user
+    unless current_user
+      redirect_to login_path, alert: "ログインしてください"
+    end
+  end
   
   def post_params
     params.require(:post).permit(:title, :body)

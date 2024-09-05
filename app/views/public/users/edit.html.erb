@@ -1,3 +1,9 @@
+<% if current_user.id == @user.id %>
+  ここに編集画面のコンテンツを配置します。
+<% else %>
+  <%= link_to "マイページへリダイレクト", mypage_path %>
+<% end %>
+
 <h2>プロフィール編集</h2>
 <%= form_with model: @user do |f| %>
   <label for="inputName">Name</label>
