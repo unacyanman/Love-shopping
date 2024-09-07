@@ -24,14 +24,14 @@ class Public::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to new_users_path, notice: '退会しました。'
+    redirect_to new_session_path, notice: '退会しました。'
   end
-  
+    
   private
 
   def authorize_user
     if current_user != User.find(params[:id])
-      redirect_to mypage_path, alert: "他のユーザーの編集はできません。"
+      redirect_to user_path(current_user), alert: "他のユーザーの編集はできません。"
     end
   end
 

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     patch 'posts/:id' => 'posts#update', as: 'update_post'
     get "/assets/font-awesome-sprockets", to: "user#show"
     get '/profile_image.jpg', to: 'users#get_profile_image'
+    get 'app/assets/images/LOVE-SHOPPING.png', to: 'path/to/your/controller#action'
     
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]
