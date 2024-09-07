@@ -18,6 +18,7 @@ class Public::PostsController < ApplicationController
   
   def index
     @posts = Post.page(params[:page])
+    @posts = Post.includes(:user).page(params[:page])
   end
   
   def show
