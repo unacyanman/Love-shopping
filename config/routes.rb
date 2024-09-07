@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     end
   end
   
+  namespace :public do
+    resources :users, only: [:edit, :update]
+  end
+  
 
   scope module: :public do
     devise_for :users

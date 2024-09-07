@@ -16,13 +16,9 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to edit_public_user_path(@user)
     else
-      flash.now[:error] = "名前を入力してください"
-      render 'edit'
+      flash[:error] = "名前を入力してください" unless @user.errors[:name].empty?
+      redirect_to edit_public_user_path(@user)
     end
-  end
-  
-  def get_profile_image
-    # 画像の取得処理を実装する
   end
   
   def destroy
@@ -43,5 +39,16 @@ class Public::UsersController < ApplicationController
     params.require(:user).permit(:name, :profile_image)
   end
   
+  def get_profile_image(width, height)
+    # プロフィール画像のURLを生成する処理
+    image_url = profile_image.variant(resize_to_limit: [width, height])
+
+    # 幅と高さを指定したリサイズ処理
+    # resized_image_url = generate_resized_image_url(image_url, width, height)
+
+    # リサイズ後の画像のURLを返す
+    # default_image_url = asset_path('default_profile_image.jpg')
+    return image_url
+  end
   
 end

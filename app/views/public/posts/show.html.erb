@@ -3,10 +3,7 @@
     <div class="card mx-auto mt-4 shadow-lg">
       <%= image_tag @post.get_image, class:"card-img-top" %>
       <div class="card-body">
-        <div class="row">
-          <div class="col-sm-12 col-md-2">
-            <%= image_tag @post.user.get_profile_image(100, 100), class: "img-fluid rounded-circle" %>
-          </div>
+
           <div class="col-sm-12 col-md-10">
             <p class="card-title">
               <%= link_to(post_path(@post.id), class:"text-dark") do %>

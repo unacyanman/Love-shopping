@@ -22,13 +22,17 @@
               <strong><i class="fa-regular fa-flag"></i><span> <%= post.title %></span></strong>
             <% end %>
           </p>
-          <p class="card-text">説明：<%= post.body %></p>
+          <p class="card-text">本文：<%= post.body %></p>
             <% if post.user %>
-              <span><i class="fa-solid fa-user"></i> By <%= post.user.name %> ｜ </span>
+              <span>
+                <i class="fa-solid fa-user"></i> By <%= link_to post.user.name, user_path(post.user) %> ｜ 
+              </span>
             <% else %>
-              <span><i class="fa-solid fa-user"></i> By Unknown User ｜ </span>
+              <span>
+                <i class="fa-solid fa-user"></i> By Unknown User ｜ 
+              </span>
             <% end %>
-          <span><i class="fa-solid fa-user"></i> By <%= post.user.name %> ｜ </span>
+          
           <span><%= link_to "#{post.comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
         </div>
       </div>

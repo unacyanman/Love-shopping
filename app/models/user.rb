@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   
   has_many :comments
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_one_attached :profile_image
   validates :name, presence: true
   
@@ -12,15 +12,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
        
   def get_profile_image(width, height)
-    # プロフィール画像のURLを生成する処理
-    image_url = profile_image.variant(resize_to_limit: [width, height])
-
-    # 幅と高さを指定したリサイズ処理
-    # resized_image_url = generate_resized_image_url(image_url, width, height)
-
-    # リサイズ後の画像のURLを返す
-    # default_image_url = asset_path('default_profile_image.jpg')
-    return image_url
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/default_profile_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   private
