@@ -19,15 +19,16 @@ Rails.application.routes.draw do
   
   namespace :public do
     resources :users, only: [:edit, :update]
+    
   end
   
 
   scope module: :public do
     devise_for :users
-    root to: 'homes#top'
+    root to: 'homes#top', as: 'homes'
     get 'homes/about', to: 'homes#about', as: :about
     get 'posts/new'
-    get 'top' => 'home#top'
+    get 'top', to: 'homes#top'
     post 'posts' => 'posts#create'
     get 'posts' => 'posts#index'
     get 'posts/:id' => 'posts#show', as: 'post'
