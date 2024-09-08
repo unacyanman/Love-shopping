@@ -25,7 +25,7 @@ class Public::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to new_registrations_path, notice: '退会しました。'
+    redirect_to new_user_registration_path, notice: '退会しました。'
   end
     
   private
