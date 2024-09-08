@@ -3,6 +3,8 @@
     <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
       <h5 class="text-dark bg-light p-4 mb-0">投稿フォーム</h5>
       <div class="form-body p-4">
+        
+        <!--バリデーションメッセージ-->
         <% if @post.errors.any? %>
           <ul class="alert alert-danger" role="alert">
             <h6 class="alert-heading">
@@ -13,6 +15,7 @@
             <% end %>
           </ul>
         <% end %>
+        
         <%= form_with model: @post do |f| %>
           <%= f.file_field :image, accept: "image/*", class: "w-100" %>
           <div class="input-group mb-3 mt-4">

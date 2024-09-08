@@ -1,9 +1,23 @@
 <div class="post-detail py-5 bg-light">
   <div class="container">
     <div class="card mx-auto mt-4 shadow-lg">
-       <% if @post.errors.any? %>
-         編集に失敗しました
-       <% end %>
+      
+      <!--バリデーションメッセージ-->
+       <!--<% if @post.errors.any? %>-->
+       <!--  編集に失敗しました-->
+       <!--<% end %>-->
+       
+      <% if @post.errors.any? %>
+        <ul class="alert alert-danger" role="alert">
+          <h6 class="alert-heading">
+            <%= @post.errors.count %>件のエラーが発生しました
+          </h6>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+       
       <%= image_tag @post.get_image, class:"card-img-top" %>
       <div class="card-body">
 

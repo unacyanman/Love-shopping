@@ -32,6 +32,9 @@ class Public::PostsController < ApplicationController
   
   def edit
     @post = Post.find(params[:id])
+    if current_user.id != @post.user_id
+      redirect_to posts_path, notice: '他の人の投稿は編集できません'
+    end
   end
   
   def update
@@ -40,7 +43,7 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post.id)
     else
       @comment = Comment.new
-      render :show
+      render :edit
     end
 
   end
@@ -48,7 +51,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to posts_path
+    redirect_to user_path(current_user)
   end
   
   private
