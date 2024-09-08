@@ -5,6 +5,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.page(params[:page])
+    render locals: { posts: @posts }
   end
 
   def edit
@@ -24,7 +25,7 @@ class Public::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to new_session_path, notice: '退会しました。'
+    redirect_to new_registrations_path, notice: '退会しました。'
   end
     
   private
