@@ -28,10 +28,27 @@ class Post < ApplicationRecord
     # default_image_url = asset_path('default_profile_image.jpg')
     return image_url
   end
-
+  
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
   
+  def self.looks(search, word)
+    # 完全一致
+    if search == "perfect_match"
+      @post = Post.where("body LIKE?", "#{word}")
+    # 前方一致
+    elsif search == "forward_match"
+      @post = Post.where("body LIKE?", "#{word}")
+    # 後方一致
+    elsif search == "backward_match"
+      @post = Post.where("body LIKE?", "#{word}")
+    # 部分一致
+    elsif search == "partial_match"
+      @post = Post.where("body LIKE?", "#{word}")
+    else
+      @post = Post.all
+    end
+  end
   
 end

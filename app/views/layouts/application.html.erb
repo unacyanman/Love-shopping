@@ -14,6 +14,8 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
+          
+          <!--ヘッダー上部　リンク集-->
           <a class="navbar-brand" href="/">
             <%= image_tag("LOVE-SHOPPING_logo-yoko.PNG", width: 400, height: 100) %>
           </a>
@@ -59,6 +61,10 @@
           </div>
         </div>
       </nav>
+    
+    <!--ヘッダー下部 検索窓-->
+    <!--<%= render 'public/searches/_search', search: @searches %>-->
+      
     </header>
     <%= yield %>
   </body>
