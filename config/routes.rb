@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
+  
+  # 管理者機能
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     get 'dashboards', to: 'dashboards#index'
     resources :users, only: [:destroy]
   end
+  
   
   namespace :public do
     resources :posts do
