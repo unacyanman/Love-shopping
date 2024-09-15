@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     devise_for :users
     resources :users
     root to: 'homes#top', as: 'homes'
-    get 'homes/about', to: 'homes#about', as: :about
+    get 'homes/about', to: 'homes#about', as: 'about'
     get "search" => "searches#search"
     get 'posts/new'
     get 'top', to: 'homes#top'
