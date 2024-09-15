@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_one_attached :profile_image
   
@@ -21,24 +21,6 @@ class User < ApplicationRecord
   end
   
   # 検索機能
-  def self.looks(search, word)
-    # 完全一致
-    if search == "perfect_match"
-      @user = User.where("introduction LIKE?", "#{word}")
-    # 前方一致
-    elsif search == "forward_match"
-      @user = User.where("introduction LIKE?","#{word}%")
-    # 後方一致
-    elsif search == "backward_match"
-      @user = User.where("introduction LIKE?","%#{word}")
-    # 部分一致
-    elsif search == "partial_match"
-      @user = User.where("introduction LIKE?","%#{word}%")
-    else
-      @user = User.all
-    end
-  end
-  
   def self.looks(search, word)
     # 完全一致
     if search == "perfect_match"

@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   
   has_many :favorites
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_one_attached :image
   paginates_per 10
   belongs_to :user

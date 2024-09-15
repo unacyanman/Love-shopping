@@ -23,6 +23,7 @@ class Public::PostsController < ApplicationController
   
   def show
     @post = Post.find_by(id: params[:id])
+    @Comment = Comment.new
     if @post
       @comment = Comment.new
     else
