@@ -7,7 +7,11 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts.page(params[:page])
     render locals: { posts: @posts }
   end
-
+  
+  def index
+    @users = User.all
+  end
+  
   def edit
     @user = User.find(params[:id])
   end
