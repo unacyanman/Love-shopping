@@ -4,10 +4,10 @@
     <title>Love-shopping</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <script src="https://kit.fontawesome.com/354c6003fa.js" crossorigin="anonymous"></script>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -50,8 +50,6 @@
                   <i class="fas fa-sign-out-alt"></i> Log out
                 <% end %>
               </li>
-              <!--ヘッダー下部 検索窓-->
-              <%= render 'public/searches/search', search: @searches %>
             <% else %>
               <li>
                 <%= link_to homes_path,class: 'nav-link text-light' do %>
@@ -78,6 +76,15 @@
           </div>
         </div>
       </nav>
+    
+    <!--!--ヘッダー下部 検索窓-->
+    <ul class="sarch ml-auto">
+      <% if user_signed_in? %>
+        <%= render 'public/searches/search', search: @searches %>
+      <% else %>
+      <% end %>
+    </ul>
+    
     </header>
     
     <div>
