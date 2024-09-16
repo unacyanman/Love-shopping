@@ -20,7 +20,8 @@
       
       <div class="row"> 
         <!-- 左側 -->
-      
+        <%= render 'side_bar', user: current_user, width: 100, height: 100 %>
+        
         <!-- 右側 -->
         <%= image_tag @post.get_image, class:"card-img-top" %>
         <div class="card-body">
