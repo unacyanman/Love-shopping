@@ -3,9 +3,9 @@
     <div class="card mx-auto mt-4 shadow-lg">
       
       <!--バリデーションメッセージ-->
-       <!--<% if @post.errors.any? %>-->
-       <!--  編集に失敗しました-->
-       <!--<% end %>-->
+       <% if @post.errors.any? %>
+         編集に失敗しました
+       <% end %>
        
       <% if @post.errors.any? %>
         <ul class="alert alert-danger" role="alert">
@@ -17,70 +17,78 @@
           <% end %>
         </ul>
       <% end %>
-       
-      <%= image_tag @post.get_image, class:"card-img-top" %>
-      <div class="card-body">
-
-          <div class="col-sm-12 col-md-10">
-            <p class="card-title">
-              <%= link_to(post_path(@post.id), class:"text-dark") do %>
-                <strong><i class="fa-regular fa-flag"></i><span> <%= @post.title %></span></strong>
+      
+      <div class="row"> 
+        <!-- 左側 -->
+      
+        <!-- 右側 -->
+        <%= image_tag @post.get_image, class:"card-img-top" %>
+        <div class="card-body">
+  
+            <div class="col-md-8 offset-md-1">
+              <table class="table">
+                <p class="card-title">
+                  <%= link_to(post_path(@post.id), class:"text-dark") do %>
+                    <strong><i class="fa-regular fa-flag"></i><span> <%= @post.title %></span></strong>
+                  <% end %>
+                </p>
+                <p class="card-title">本文：<%= @post.body %></p>
+                <span><i class="fa-solid fa-user"></i> By <%= @post.user.name %> ｜ </span>
+                <span><i class="fa-solid fa-calendar-days"></i> <%= @post.created_at.strftime('%Y/%m/%d') %> ｜ </span>
+                <span><i class="fa-solid fa-comment"></i> <%= link_to "#{@post.comments.count}", post_path(@post.id), class:"text-dark" %> ｜ </span>
+                <% if @post.favorited_by?(current_user) %>
+                  <span>
+                    <%= link_to(post_image_favorite_path(@post), class:"text-dark", method: :delete) do %>
+                      <i class="fa-solid fa-heart"></i> <%= @post.favorites.count %>
+                    <% end %>
+                  </span>
+                  <% else %>
+                  <span>
+                    <%= link_to(post_favorite_path(@post), class:"text-dark", method: :post) do %>
+                      <i class="fa-solid fa-heart"></i> <%= @post.favorites.count %>
+                    <% end %>
+                  </span>
+                <% end %>
+                
+                <% if @post.user == current_user %>
+                  <span> ｜ </span>
+                  <%= link_to "編集", edit_post_path(@post.id) %>
+                  <%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
+                <% end %>
+              </table>
+            </div>
+          </div>
+          <hr>
+          
+          <!--コメント-->
+          <div>
+            <p>コメント件数：<%= @post.comments.count %></p>
+            <% @post.comments.each do |comment| %>
+              <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+              <%= comment.user.name %>
+              <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+              <% if comment.user == current_user %>
+                <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
               <% end %>
-            </p>
-            <p class="card-title">本文：<%= @post.body %></p>
-            <span><i class="fa-solid fa-user"></i> By <%= @post.user.name %> ｜ </span>
-            <span><i class="fa-solid fa-calendar-days"></i> <%= @post.created_at.strftime('%Y/%m/%d') %> ｜ </span>
-            <span><i class="fa-solid fa-comment"></i> <%= link_to "#{@post.comments.count}", post_path(@post.id), class:"text-dark" %> ｜ </span>
-            <% if @post.favorited_by?(current_user) %>
-              <span>
-                <%= link_to(post_image_favorite_path(@post), class:"text-dark", method: :delete) do %>
-                  <i class="fa-solid fa-heart"></i> <%= @post.favorites.count %>
-                <% end %>
-              </span>
-              <% else %>
-              <span>
-                <%= link_to(post_favorite_path(@post), class:"text-dark", method: :post) do %>
-                  <i class="fa-solid fa-heart"></i> <%= @post.favorites.count %>
-                <% end %>
-              </span>
-            <% end %>
-            <% if @post.user == current_user %>
-              <span> ｜ </span>
-              <%= link_to "編集", edit_post_path(@post.id) %>
-              <%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
             <% end %>
           </div>
-        </div>
-        <hr>
-        
-        <!--コメント-->
-        <div>
-          <p>コメント件数：<%= @post.comments.count %></p>
-          <% @post.comments.each do |comment| %>
-            <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
-            <%= comment.user.name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-            <% if comment.user == current_user %>
-              <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+          <div>
+            <%= form_with model: [@post, @comment] do |f| %>
+              <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+              <%= f.submit "送信する" %>
             <% end %>
-          <% end %>
+          </div>
+          
+          <hr>
+          <!--投稿ユーザー情報-->
+          <div class="user-link">
+            <p>投稿ユーザー画像：<%= image_tag @post.user.get_profile_image(100,100) %></p>
+            <p>ユーザーネーム：<%= @post.user.name %></p>
+            <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+          
+          <hr>
         </div>
-        <div>
-          <%= form_with model: [@post, @comment] do |f| %>
-            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-            <%= f.submit "送信する" %>
-          <% end %>
-        </div>
-        
-        <hr>
-        <!--投稿ユーザー情報-->
-        <div class="user-link">
-          <p>投稿ユーザー画像：<%= image_tag @post.user.get_profile_image(100,100) %></p>
-          <p>ユーザーネーム：<%= @post.user.name %></p>
-          <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
-        </div>
-        
-        <hr>
       </div>
     </div>
   </div>

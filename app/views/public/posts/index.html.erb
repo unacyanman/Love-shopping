@@ -1,6 +1,20 @@
-    <!--共通　side_barの呼び出し-->
-    <%= render 'side_bar', post: @posts %>
+<div class="container">
+  
+<% if @post && @post.errors.any? %>
+  <%= @post.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+  
+  <div class="row">    
     
+    <!-- 左側 -->
+    <%= render 'side_bar', user: current_user, width: 100, height: 100 %>
+    
+    <!-- 右側 -->
     <div class="card-list-container py-5">
       <% @posts.each do |post| %>
       <div class="card w-50 mx-auto mt-4 shadow-lg">
