@@ -1,21 +1,40 @@
-<div class="col-md-8 offset-md-1">
-  <h4>User</h4>
-    <table class="table table-striped">
-      <table class="books_table">
-        <tr>
-          <th>image</th>
-          <th>name</th>
-          <th></th>
-        </tr>
-        <tbody>
-          <% @users.each do |user| %>
+<div class="p-4">
+  
+<% if @post && @post.errors.any? %>
+  <%= @post.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="row"> 
+
+  <!-- 左側 -->
+  <%= render '/public/posts/side_bar', user: current_user, width: 100, height: 100 %>
+  
+  <!-- 右側 -->
+  <div class="card-list-container row col-md-9 py-5">
+  
+    <div class="col-md-9 offset-md-1">
+      <h4>User</h4>
+        <table class="table table-striped">
+          <table class="books_table">
             <tr>
-              <td><%= image_tag user.get_profile_image(100, 100) %></td>
-              <td><%= user.name %></td>
-              <td><%=link_to "Show", user_path(user) %></td>
+              <th>image</th>
+              <th>name</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </table>
-</div> 
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= image_tag user.get_profile_image(100, 100) %></td>
+                  <td><%= user.name %></td>
+                  <td><%=link_to "Show", user_path(user) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </table>
+    </div> 

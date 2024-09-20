@@ -20,11 +20,22 @@
       
       <div class="row"> 
         <!-- 左側 -->
-        <%= render 'side_bar', user: current_user, width: 100, height: 100 %>
+        
+        
+        <!--投稿ユーザー情報-->
+        <div class="col-md-3">
+          <h4>Post User</h4>
+          <div class="user-link">
+            <p>投稿ユーザー画像：<%= image_tag @post.user.get_profile_image(100,100) %></p>
+            <p>ユーザーネーム：<%= @post.user.name %></p>
+            <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+        </div>
         
         <!-- 右側 -->
+        <div class="card-list-container row col-md-9 py-5">
         <%= image_tag @post.get_image, class:"card-img-top" %>
-        <div class="card-body">
+        
   
             <div class="col-md-8 offset-md-1">
               <table class="table">
@@ -58,12 +69,21 @@
                 <% end %>
               </table>
             </div>
-          </div>
-          <hr>
+          </br>
           
-          <!--コメント-->
-          <div>
+          <div class="col-md-8 offset-md-1">
+            <!--コメント数-->
             <p>コメント件数：<%= @post.comments.count %></p>
+            
+            <!--コメントフォーム-->
+            <div class="col-md-8 offset-md-1">
+              <%= form_with model: [@post, @comment] do |f| %>
+                <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+                <%= f.submit "送信する" %>
+              <% end %>
+            </div>
+            
+            <!--コメント内容-->
             <% @post.comments.each do |comment| %>
               <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
               <%= comment.user.name %>
@@ -73,22 +93,7 @@
               <% end %>
             <% end %>
           </div>
-          <div>
-            <%= form_with model: [@post, @comment] do |f| %>
-              <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-              <%= f.submit "送信する" %>
-            <% end %>
-          </div>
           
-          <hr>
-          <!--投稿ユーザー情報-->
-          <div class="user-link">
-            <p>投稿ユーザー画像：<%= image_tag @post.user.get_profile_image(100,100) %></p>
-            <p>ユーザーネーム：<%= @post.user.name %></p>
-            <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
-          </div>
-          
-          <hr>
         </div>
       </div>
     </div>
