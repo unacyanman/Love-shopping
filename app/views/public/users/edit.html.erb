@@ -1,25 +1,36 @@
-<% if @user.errors.any? %>
-  <%= @user.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
 
-<% if current_user.id == @user.id %>
-  <!--ここに編集画面のコンテンツを配置します。-->
-<% else %>
-  <%= link_to "マイページへリダイレクト", mypage_path %>
-<% end %>
-
-<h2>プロフィール編集</h2>
-<%= form_with model: @user do |f| %>
-  <label for="inputName">Name</label>
-  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%>
-  <label for="inputImage">ProfileImage</label>
-  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>  
-  <%= f.submit "変更を保存" %>
-<% end %>
-<h2></h2>
-<%= link_to '退会する', user_path(@user), method: :delete, data: { confirm: '本当に退会しますか？' } %>
+      <% if current_user.id == @user.id %>
+        <!--ここに編集画面のコンテンツを配置します。-->
+      <% else %>
+        <%= link_to "マイページへリダイレクト", mypage_path %>
+      <% end %>
+      
+      <h2>プロフィール編集</h2>
+      
+      <% if @user.errors.any? %>
+        <%= @user.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      
+      <%= form_with model: @user do |f| %>
+      
+        <label for="inputName">Name</label>
+        <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%>
+        
+        <label for="inputImage">ProfileImage</label>
+        <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>  
+        
+        <label for="inputImage">Introduction</label>
+        <%= f.text_field :introduction, autofocus: true, id:"", placeholder:"自己紹介"%></br></br>
+        
+        <%= f.submit "変更を保存" %>
+      <% end %>
+      <h2></h2>
+      <%= link_to '退会する', user_path(@user), method: :delete, data: { confirm: '本当に退会しますか？' } %>

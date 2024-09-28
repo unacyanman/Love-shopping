@@ -50,4 +50,10 @@ class User < ApplicationRecord
     return resized_image_url
   end     
         
+  validates :name, uniqueness: true
+  validates :name, presence: true
+  validates :name, length: { in: 2..20 }
+  
+  validates :introduction, length: { maximum: 50 }
+        
 end
