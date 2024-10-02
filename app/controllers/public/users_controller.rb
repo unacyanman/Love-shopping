@@ -41,7 +41,7 @@ class Public::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :profile_imag, :introductione)
+    params.require(:user).permit(:name, :profile_imag, :introduction)
   end
   
   def get_profile_image(width, height)
