@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :users, only: [:destroy]
   end
   
+  namespace :admin do
+    get 'comments', to: 'comments#index'
+    resources :comments, only: [:destroy]
+  end
   
   namespace :public do
     resources :posts do

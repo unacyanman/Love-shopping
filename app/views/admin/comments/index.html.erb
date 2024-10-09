@@ -1,0 +1,13 @@
+<h1>コメント一覧</h1>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      <strong><%= comment.post.title %></strong>: <%= comment.body %>
+      <!-- 削除ボタンのリンクを配置する場合 -->
+      <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'ユーザー一覧', admin_dashboards_path %>
