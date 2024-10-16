@@ -1,6 +1,6 @@
 class Search < ApplicationRecord
   
-  def self.looks(search, word)
+  def self.looks(search,range, word)
     # 検索処理の実装
     # UserモデルやPostモデルに対して実際の検索処理を行うコードを記述してください
     
