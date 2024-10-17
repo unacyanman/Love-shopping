@@ -13,34 +13,33 @@
   <div class="row"> 
 
     <!--左側-->
+    <div class="col-md-3">
     
     <!--右側-->
     <!--検索対象モデルがUserの時 -->
     <div class="card-list-container row col-md-9 py-5">
           <div class="col-md-9 offset-md-1">
-            <h4>User</h4>
-              <table class="table table-striped">
-              <table class="books_table">
-                <tr>
-                  <th>image</th>
-                  <th>name</th>
-                  <th></th>
-                </tr>
-                <tbody>
-                  <% if @range == "User" %>
-                    <% @users.each do |user| %>
-                    <tr>
-                      <td><%= image_tag user.get_profile_image(100, 100) %></td>
-                      <td><%= user.name %></td>
-                      <td><%=link_to "Show", user_path(user) %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-              </table>
+            <table class="table table-striped">
+            <table class="books_table">
+              <tr>
+                <th>image</th>
+                <th>name</th>
+                <th></th>
+              </tr>
+              <tbody>
+                <% if @range == "User" %>
+                  <% @users.each do |user| %>
+                  <tr>
+                    <td><%= image_tag user.get_profile_image(100, 100) %></td>
+                    <td><%= user.name %></td>
+                    <td><%=link_to "Show", user_path(user) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </table>
           </div>
         </div>
-        
       
     <% else %>
       <!-- 検索対象モデルがPostの時 -->
