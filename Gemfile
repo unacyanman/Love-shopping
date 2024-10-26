@@ -65,8 +65,6 @@ group :production do
   gem 'mysql2'
 end
 
-gem 'font-awesome-sass'
-gem 'font-awesome-rails'
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
